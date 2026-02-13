@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Valentine 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Dancing Script', cursive;
+    background:#fbe3e8;
+    overflow:hidden;
+}
+
+/* START SCREEN */
+
+.start-screen{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+h1{
+    font-size:40px;
+    color:#c94f7c;
+    margin-bottom:20px;
+}
+
+.top-gif{
+    width:200px;
+    margin-bottom:20px;
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
+}
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:30px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yes{
+    background:#b5ead7;
+    transform:scale(1);
+}
+
+#no{
+    background:#ff9aa2;
+    transform:scale(1);
+}
+
+.fullscreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    font-size:40px;
+    border-radius:0;
+}
+
+/* SLIDES */
+
+.slides{
+    display:none;
+    height:100vh;
+    overflow-y:scroll;
+    scroll-snap-type:y mandatory;
+}
+
+.section{
+    height:100vh;
+    scroll-snap-align:start;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+.section img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.6);
+    z-index:-1;
+}
+
+.text{
+    font-size:35px;
+    padding:20px;
+    animation:fade 2s ease;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.final{
+    background:#f8cdda;
+    color:#a44a6a;
+    font-size:45px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="music.mp3" loop></audio>
+
+<button onclick="document.getElementById('music').play()">
+    Play Music 🎵
+</button>
+
+<!-- START SCREEN -->
+<div class="start-screen" id="start">
+
+    <img src="cute.gif" class="top-gif">
+
+    <h1>Will you be my Valentine? 💗</h1>
+
+    <div>
+        <button id="yes" onclick="love()">Yes 💖</button>
+        <button id="no" onclick="shrinkNo()">No 😢</button>
+    </div>
+</div>
+
+<!-- SLIDES -->
+<div class="slides" id="slides">
+
+    <div class="section">
+        <img src="photo1.jpg">
+        <div class="text">
+            You are my only love and I hope it stays that way for the rest of life
+        </div>
+    </div>
+
+    <div class="section">
+        <img src="photo2.jpg">
+        <div class="text">
+            Every moment spent with you feels like the most beautiful dream that I don’t want to wake up from
+        </div>
+    </div>
+
+    <div class="section">
+        <img src="photo3.jpg">
+        <div class="text">
+            I will always choose you with any of your cons, I will always be ready to heal and kiss your sore spots
+        </div>
+    </div>
+
+    <div class="section final">
+        I love you endlessly, your A. You are my most long-awaited valentine 💖
+    </div>
+
+</div>
+
+<script>
+let yesSize = 1;
+let noSize = 1;
+
+function shrinkNo(){
+    yesSize += 0.2;
+    noSize -= 0.15;
+
+    document.getElementById("yes").style.transform = "scale("+yesSize+")";
+    document.getElementById("no").style.transform = "scale("+noSize+")";
+
+    if(noSize <= 0.2){
+        document.getElementById("no").style.display="none";
+    }
+
+    if(yesSize >= 3){
+        let y = document.getElementById("yes");
+        y.classList.add("fullscreen");
+        y.innerHTML="ONLY YES 💗";
+    }
+}
+
+function love(){
+    document.getElementById("start").style.display="none";
+    document.body.style.overflow="auto";
+    document.getElementById("slides").style.display="block";
+
+    let music = document.getElementById("music");
+    music.volume = 0.7;
+    music.play().catch(error => console.log(error));
+}
+</script>
+
+</body>
+</html>
